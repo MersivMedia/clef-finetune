@@ -4,7 +4,7 @@
 
 Clef ([Cloudflare/clef](https://huggingface.co/Cloudflare/clef), 27B) and Clef-flash ([Cloudflare/clef-flash](https://huggingface.co/Cloudflare/clef-flash), 9B) are Apache-2.0 decision models. You send them a state and typed questions, and they return a probability for every allowed answer in one forward pass. Cloudflare released inference code only. This repo adds the training side, following the recipe they describe in their [launch post](https://blog.cloudflare.com/clef-decision-models): LoRA on the backbone, the joint schema head trained alongside it, and a label-smoothed cross-entropy + Brier loss.
 
-> **Status:** the full pipeline is tested end to end on CPU against a tiny random model. **No GPU training run on real Clef weights has been done yet**, so there are no accuracy claims. See [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
+> **Status:** the full pipeline is tested end to end on CPU against a tiny random model. **No GPU training run on real Clef weights has been done yet**, so there are no accuracy claims. See [docs/KNOWN_ISSUES.md](https://github.com/MersivMedia/clef-finetune/blob/main/docs/KNOWN_ISSUES.md).
 
 ## Features
 
@@ -15,16 +15,22 @@ Clef ([Cloudflare/clef](https://huggingface.co/Cloudflare/clef), 27B) and Clef-f
 - **Data validator**: every label is checked against the legal options, with class balance reported and a warning on more than 90% majority.
 - **Business-grade eval**: accuracy, macro-F1, NLL, Brier, ECE, and **auto-decide coverage at a target precision**: what share of cases the model can decide alone at, say, 99% precision, and at what confidence threshold. Reports base vs tuned as JSON + markdown.
 - **Release-format export**: `merge` writes merged safetensors + `joint_head.safetensors` + tokenizer/processor + Cloudflare's original `joint_schema_model.py`. The result loads with Cloudflare's own `load_release_model`, unchanged.
-- **Vertical starter kits**: [insurance claims](examples/insurance-claims) (disposition, fraud red flags, severity, coverage line) and [compliance](examples/compliance) (AML alert disposition, sanctions hit, policy violation, risk score). Both come with schemas, paraphrase templates and clearly labelled **synthetic** records.
+- **Vertical starter kits**: [insurance claims](https://github.com/MersivMedia/clef-finetune/tree/main/examples/insurance-claims) (disposition, fraud red flags, severity, coverage line) and [compliance](https://github.com/MersivMedia/clef-finetune/tree/main/examples/compliance) (AML alert disposition, sanctions hit, policy violation, risk score). Both come with schemas, paraphrase templates and clearly labelled **synthetic** records.
 - **Practical training**: batch size 1 + gradient accumulation, gradient checkpointing, bf16, seeded runs, checkpoint/resume, YAML configs.
 - **Cloudflare's code is never modified.** `joint_schema_model.py` loads from your release folder or the Hub at a pinned revision. A byte-identical vendored copy (hash-checked in CI) is the offline fallback.
 
 ## Install
 
 ```bash
-git clone https://github.com/MersivMedia/clef-finetune && cd clef-finetune
 python -m venv .venv && . .venv/bin/activate
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128   # or /whl/cpu
+pip install clef-finetune
+```
+
+The starter kits and example configs live in the repo, so for those (or to develop):
+
+```bash
+git clone https://github.com/MersivMedia/clef-finetune && cd clef-finetune
 pip install -e ".[dev]"
 ```
 
@@ -71,14 +77,14 @@ bash scripts/verify_cpu.sh     # pytest + make-tiny -> validate -> augment -> tr
 
 ### Config
 
-Every setting, with defaults, is in [`configs/clef-flash-insurance.yaml`](configs/clef-flash-insurance.yaml): model path and pinned revision, augmentation probabilities, LoRA rank/alpha/target suffixes, learning rates, loss weights, checkpointing.
+Every setting, with defaults, is in [`configs/clef-flash-insurance.yaml`](https://github.com/MersivMedia/clef-finetune/blob/main/configs/clef-flash-insurance.yaml): model path and pinned revision, augmentation probabilities, LoRA rank/alpha/target suffixes, learning rates, loss weights, checkpointing.
 
 ## Docs
 
-- [Data and labelling guide](docs/DATA_GUIDE.md): what to collect, how many examples, consensus labels, hold-out sets
-- [GPU sizing and RunPod how-to](docs/GPU_AND_RUNPOD.md)
-- [Known issues and verification status](docs/KNOWN_ISSUES.md)
+- [Data and labelling guide](https://github.com/MersivMedia/clef-finetune/blob/main/docs/DATA_GUIDE.md): what to collect, how many examples, consensus labels, hold-out sets
+- [GPU sizing and RunPod how-to](https://github.com/MersivMedia/clef-finetune/blob/main/docs/GPU_AND_RUNPOD.md)
+- [Known issues and verification status](https://github.com/MersivMedia/clef-finetune/blob/main/docs/KNOWN_ISSUES.md)
 
 ## License
 
-Apache-2.0. Clef and Clef-flash weights and `joint_schema_model.py` are © Cloudflare, Inc., also Apache-2.0 (see [`src/clef_finetune/_vendor/NOTICE`](src/clef_finetune/_vendor/NOTICE)). This project is not affiliated with Cloudflare.
+Apache-2.0. Clef and Clef-flash weights and `joint_schema_model.py` are © Cloudflare, Inc., also Apache-2.0 (see [`src/clef_finetune/_vendor/NOTICE`](https://github.com/MersivMedia/clef-finetune/tree/main/src/clef_finetune/_vendor/NOTICE)). This project is not affiliated with Cloudflare.

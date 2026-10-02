@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,8 +8,16 @@ version = "0.1.0"
 description = "LoRA fine-tuning toolkit for Cloudflare's open-source Clef / Clef-flash decision models"
 readme = "README.md"
 license = "Apache-2.0"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
 authors = [{ name = "Mersiv Media", email = "contact@mersivmedia.com" }]
+keywords = ["clef", "clef-flash", "cloudflare", "fine-tuning", "lora", "peft", "decision-models", "qwen", "insurance", "compliance"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
   "torch>=2.6",
   "transformers>=5.10.2",
@@ -24,6 +32,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/MersivMedia/clef-finetune"
+Issues = "https://github.com/MersivMedia/clef-finetune/issues"
+"Known issues" = "https://github.com/MersivMedia/clef-finetune/blob/main/docs/KNOWN_ISSUES.md"
 
 [project.scripts]
 clef-finetune = "clef_finetune.cli:main"
