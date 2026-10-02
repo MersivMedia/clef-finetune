@@ -1,0 +1,15 @@
+joint_schema_model.py in this directory is an UNMODIFIED copy of the file of the
+same name published by Cloudflare, Inc. in the Hugging Face repository
+Cloudflare/clef (revision 2f3de3dd85f379784083b0814d997ab627200f0c), released
+under the Apache License 2.0.
+
+  Copyright Cloudflare, Inc.
+  Licensed under the Apache License, Version 2.0
+  https://huggingface.co/Cloudflare/clef
+
+SHA-256: 0e304cf7c6500e8bb59bef7e2afd2c6373f82596dfb3b57d1aa93c175e2dc3a3
+
+It is vendored only as an offline fallback (CI, air-gapped boxes). At runtime
+clef-finetune prefers the copy inside your release directory or the one on the
+Hugging Face Hub at a pinned revision. Merged releases produced by
+`clef-finetune merge` copy the original file through unchanged.

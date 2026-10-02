@@ -1,0 +1,27 @@
+paraphrases:
+  aml_disposition:
+    - "How should the analyst disposition this AML alert?"
+    - "Pick the outcome for this transaction-monitoring alert."
+    - "{instructions} Base it on the customer profile and the transactions."
+  sanctions_hit:
+    - "Is this a true sanctions match?"
+    - "Does any party genuinely match a sanctions list entry (beyond a name-only hit)?"
+  policy_violation:
+    - "Which compliance policy is breached here, if any?"
+    - "Name the violated internal policy."
+  risk_score:
+    - "Rate the residual risk of this alert."
+    - "How risky is this activity after considering explanations?"
+option_aliases:
+  aml_disposition:
+    close_false_positive: [false_positive, CLOSE_FP, close_no_action]
+    close_with_note: [close_noted, CLOSE_WITH_NOTE]
+    escalate_l2: [escalate, level_2_review, ESCALATE]
+    file_sar: [sar, recommend_sar, FILE_SAR]
+  policy_violation:
+    none: [no_violation, NONE]
+    kyc_incomplete: [cdd_gap, KYC_INCOMPLETE]
+    structuring: [STRUCTURING, threshold_avoidance]
+    high_risk_jurisdiction: [prohibited_geo, HIGH_RISK_JURISDICTION]
+    third_party_payment: [unauthorised_third_party, THIRD_PARTY_PAYMENT]
+generic_paraphrases: []

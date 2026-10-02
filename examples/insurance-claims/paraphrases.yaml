@@ -1,0 +1,31 @@
+# Instruction paraphrases and option-id aliases for schema augmentation.
+# "{instructions}" expands to the original instruction text.
+paraphrases:
+  disposition:
+    - "What is the correct next action on this claim?"
+    - "As a claims adjuster, choose the disposition for this file."
+    - "Route this claim: pay it, decline it, send it up, or ask for more documents?"
+    - "{instructions} Consider coverage, documentation and red flags."
+  fraud_indicators:
+    - "Does this claim show any fraud warning signs?"
+    - "Should SIU be concerned about this claim based on red flags?"
+    - "Fraud red flag present? {instructions}"
+  severity:
+    - "How severe is this loss?"
+    - "Grade the size and seriousness of the loss."
+  coverage_category:
+    - "Which part of the policy would respond to this loss?"
+    - "Classify the claim by line of coverage."
+option_aliases:
+  disposition:
+    approve: [APPROVE, approved, pay, accept]
+    deny: [DENY, denied, decline, reject]
+    escalate: [ESCALATE, escalated, refer_to_siu, refer]
+    request_info: [REQUEST_INFO, needs_info, pend_for_docs, more_info]
+  coverage_category:
+    auto_collision: [collision, AUTO_COLLISION]
+    auto_liability: [liability, AUTO_LIABILITY]
+    property_water: [water_damage, PROPERTY_WATER]
+    property_fire: [fire_smoke, PROPERTY_FIRE]
+    theft: [THEFT, stolen_property]
+generic_paraphrases: []

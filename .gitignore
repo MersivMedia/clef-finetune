@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+runs/
+eval_report/
+.env
+.env.*
+verify_cpu.log

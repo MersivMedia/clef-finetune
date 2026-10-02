@@ -1,0 +1,23 @@
+# CPU smoke test against a tiny random model: `clef-finetune make-tiny /tmp/tiny` first.
+model:
+  path: /tmp/clef-tiny
+  dtype: float32
+data:
+  train: ../examples/insurance-claims/train.synthetic.jsonl
+  eval: ../examples/insurance-claims/eval.synthetic.jsonl
+  max_length: 4096
+augment:
+  templates_file: ../examples/insurance-claims/paraphrases.yaml
+lora:
+  r: 4
+  alpha: 8
+train:
+  max_steps: 4
+  grad_accum: 2
+  lr: 1.0e-3
+  head_lr: 1.0e-3
+  warmup_steps: 0
+  ordinal_weight: 0.5
+  gradient_checkpointing: true
+  save_every: 2
+output_dir: /tmp/clef-tiny-run

@@ -1,0 +1,40 @@
+{
+  "questions": {
+    "aml_disposition": {
+      "type": "choice",
+      "instructions": "Disposition for this transaction-monitoring alert.",
+      "criteria": {
+        "close_false_positive": "Activity is explained by known customer profile; close with no further action.",
+        "close_with_note": "Unusual but adequately explained; close and add a note to the customer file.",
+        "escalate_l2": "Unexplained or structured activity; send to a level-2 investigator.",
+        "file_sar": "Clear indicators of money laundering or terrorist financing; recommend filing a suspicious activity report."
+      }
+    },
+    "sanctions_hit": {
+      "type": "noul",
+      "instructions": "Is any party a probable true match to a sanctions or watch list entry (not merely a similar name)?"
+    },
+    "policy_violation": {
+      "type": "choice",
+      "instructions": "Which internal policy, if any, does this activity violate?",
+      "criteria": {
+        "none": "No policy violation.",
+        "kyc_incomplete": "Customer due diligence / KYC records missing or expired.",
+        "structuring": "Transactions appear split to avoid reporting thresholds.",
+        "high_risk_jurisdiction": "Activity with a prohibited or high-risk jurisdiction without approval.",
+        "third_party_payment": "Payments to or from unrelated third parties not allowed by the account type."
+      }
+    },
+    "risk_score": {
+      "type": "score",
+      "instructions": "Overall residual risk of this alert.",
+      "criteria": [
+        "Very low",
+        "Low",
+        "Medium",
+        "High",
+        "Critical"
+      ]
+    }
+  }
+}
